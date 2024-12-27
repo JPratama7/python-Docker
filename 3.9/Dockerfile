@@ -5,7 +5,7 @@ RUN apt update && apt upgrade && apt -y install poppler-utils ffmpeg libsm6 libx
 
 WORKDIR /app
 
-COPY requirements.txt .
+COPY "3.9/requirements.txt" .
 
 RUN pip install --upgrade pip && pip install --no-cache-dir --upgrade $(cat requirements.txt)
 
