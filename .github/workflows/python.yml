@@ -23,15 +23,6 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.build }}
-      - name: Enable experimental features for the Docker daemon and CLI
-        run: |
-          echo $'{\n  "experimental": true\n}' | sudo tee /etc/docker/daemon.json
-          mkdir -p ~/.docker
-          echo $'{\n  "experimental": "enabled"\n}' | sudo tee ~/.docker/config.json
-          sudo service docker restart
-          docker version -f '{{.Client.Experimental}}'
-          docker version -f '{{.Server.Experimental}}'
-          docker buildx version
       # - name: Setup docker-slim
       #   run: curl -sL https://raw.githubusercontent.com/docker-slim/docker-slim/master/scripts/install-dockerslim.sh | sudo -E bash -
       - name: Setup docker-squash
