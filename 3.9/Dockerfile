@@ -48,6 +48,8 @@ RUN apt remove g++ gcc cmake libnss3-dev libcairo2-dev libjpeg-dev libgif-dev li
 
 COPY ./* .
 
-RUN pip3 install -r ./requirements.txt
+RUN pip install --upgrade pip \
+    && pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu \
+    && pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 8501

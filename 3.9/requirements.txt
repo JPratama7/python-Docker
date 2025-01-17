@@ -12,8 +12,5 @@ paramiko
 tqdm
 python-dotenv
 natsort
-torch 
-torchvision 
-torchaudio
 python-doctr[torch]
 scikit-learn
