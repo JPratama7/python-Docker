@@ -44,6 +44,8 @@ RUN wget https://poppler.freedesktop.org/poppler-21.09.0.tar.xz \
 
 WORKDIR /app
 
+RUN apt remove g++ gcc cmake libnss3-dev libcairo2-dev libjpeg-dev libgif-dev libblkid-dev e2fslibs-dev libboost-all-dev libaudit-dev libopenjp2-7-dev -y
+
 COPY ./* .
 
 RUN pip3 install -r ./requirements.txt
