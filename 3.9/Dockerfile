@@ -1,16 +1,19 @@
-# Use the official Python 3.9 image as a base
-FROM --platform=linux/amd64 python:3.9-slim
+FROM --platform=linux/amd64 python:3.9-slim-buster
+
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
-    build-essential \
+    curl \
+    software-properties-common \
+    git \
     libpq-dev \
-    postgresql-client \
     gcc \
     libgl1-mesa-glx \
     libglib2.0-0 \
     wget \
     tar \
     xz-utils \
+    build-essential \
     cmake \
     libnss3 \
     libnss3-dev \
@@ -22,7 +25,9 @@ RUN apt-get update && apt-get install -y \
     e2fslibs-dev \
     libboost-all-dev \
     libaudit-dev \
-    libopenjp2-7-dev g++
+    libopenjp2-7-dev \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN wget https://poppler.freedesktop.org/poppler-21.09.0.tar.xz \
     && tar xf poppler-21.09.0.tar.xz \
@@ -39,8 +44,8 @@ RUN wget https://poppler.freedesktop.org/poppler-21.09.0.tar.xz \
 
 WORKDIR /app
 
-COPY "3.9/requirements.txt" .
+COPY ./* .
 
-RUN pip install --upgrade pip && pip install --no-cache-dir --upgrade $(cat requirements.txt)
+RUN pip3 install -r ./requirements.txt
 
-COPY . .
+EXPOSE 8501
